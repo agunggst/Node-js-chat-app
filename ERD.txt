@@ -1,0 +1,35 @@
+https://dbdiagram.io/d
+
+Table users {
+  id integer [primary key]
+  username varchar
+  avatar varchar
+  isLogin boolean
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table participants {
+  id integer [primary key]
+  userId integer [ref: > users.id]
+  roomId integer [ref: > rooms.id]
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table rooms {
+  id integer [primary key]
+  roomName varchar
+  adminId integer [ref: > users.id]
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table messages {
+  id integer [primary key]
+  roomId integer [ref: > rooms.id]
+  userId integer [ref: > users.id]
+  message varchar
+  createdAt timestamp
+  updatedAt timestamp
+}
