@@ -1,26 +1,45 @@
+const { room, participant, user, message } = require('../models')
+
 class RoomController {
-  static getUserRoom (req, res) {
+  static async getUserRoom (req, res) {
+    try {
+      const data = await room.findAll()
+      res.json(data)
+    } catch (error) {
+      res.send(error)
+    }
+  }
+  static async getChatPanel (req, res) {
 
   }
-  static getChatPanel (req, res) {
+  static async gotoCreateRoom (req, res) {
 
   }
-  static gotoCreateRoom (req, res) {
+  static async createRoom (req, res) {
 
   }
-  static createRoom (req, res) {
+  static async getRoomParticipants (req, res) {
+    try {
+      const data = await participant.findAll({
+        include: {
+          model: user
+        },
+        where: {
+          roomId: Number(req.params.id)
+        }
+      })
+      res.json(data)
+    } catch (error) {
+      res.send(error)
+    }
+  }
+  static async getRoomNonParticipants (req, res) {
 
   }
-  static getRoomParticipants (req, res) {
+  static async addRoomParticipant (req, res) {
 
   }
-  static getRoomNonParticipants (req, res) {
-
-  }
-  static addRoomParticipant (req, res) {
-
-  }
-  static deleteRoomParticipant (req, res) {
+  static async deleteRoomParticipant (req, res) {
 
   } 
 }

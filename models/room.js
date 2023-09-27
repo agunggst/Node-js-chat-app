@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      room.belongsTo(models.user)
+      room.hasMany(models.message)
+      // room.hasMany(models.participant)
+      room.belongsToMany(models.user, { through: models.participant })
     }
   }
   room.init({

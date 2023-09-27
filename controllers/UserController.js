@@ -1,8 +1,8 @@
 class UserController {
-  static getAllUsers (req, res) {
+  static async getAllUsers (req, res) {
 
   }
-  static switchLogin (req, res) {
+  static async switchLogin (req, res) {
 
   }
 }
