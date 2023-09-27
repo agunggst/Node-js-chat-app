@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       user.hasMany(models.room)
       user.hasMany(models.message)
-      // user.hasMany(models.participant)
       user.belongsToMany(models.room, { through: models.participant })
     }
   }
