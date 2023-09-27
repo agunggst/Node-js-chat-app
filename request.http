@@ -1,5 +1,19 @@
 GET http://localhost:3000/
 ###
 
+GET http://localhost:3000/rooms/1
+###
+
 GET http://localhost:3000/rooms/1/participants
+###
+
+POST http://localhost:3000/create-room
+content-type: application/json
+{
+  "roomName": "Grup RT 11",
+  "roomAvatar": "https://assets-a1.kompasiana.com/items/album/2019/12/29/bolot-5e084c14097f36069c236c23.jpg"
+}
+###
+
+GET http://localhost:3000/rooms/1/delete-participant/4
 ###

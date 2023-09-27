@@ -3,8 +3,7 @@ const RoomController = require('../controllers/RoomController')
 
 routes.get('/:id', RoomController.getChatPanel)
 routes.get('/:id/participants', RoomController.getRoomParticipants)
-routes.get('/:id/participants/add-participant', RoomController.getRoomNonParticipants)
-routes.post('/:id/participants/add-participant', RoomController.addRoomParticipant)
-routes.post('/:id/participants/delete-participant', RoomController.deleteRoomParticipant)
+routes.get('/:id/add-participant/:userId', RoomController.addRoomParticipant)
+routes.get('/:id/delete-participant/:userId', RoomController.deleteRoomParticipant)
 
 module.exports = routes
