@@ -18,9 +18,19 @@ module.exports = (sequelize, DataTypes) => {
   }
   user.init({
     username: DataTypes.STRING,
-    avatar: DataTypes.STRING,
+    avatar: {
+      type: DataTypes.STRING,
+      isUrl: true
+    },
     isLogin: DataTypes.BOOLEAN
   }, {
+    hooks: {
+      beforeCreate: (user, options) => {
+        if (user.avatar === '' || !user.avatar) {
+          user.avatar = 'https://cdn-icons-png.flaticon.com/512/2716/2716038.png'
+        }
+      }
+    },
     sequelize,
     modelName: 'user',
   });
