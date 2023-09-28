@@ -86,6 +86,14 @@ body{
   border: none;
   cursor: pointer;
 }
+.button-link{
+  background-color: transparent;
+  color: var(--blue-button);
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 0;
+}
 .w-100{
   width: 100%;
 }
@@ -146,14 +154,13 @@ body{
   flex-direction: row;
   padding-bottom: 14px;
 }
-.chat-panel .top{
-
-}
 .chat-panel .mid{
   height: 540px;
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  display: flex;
+  flex-direction: column-reverse;
 }
 .chat-panel .mid::-webkit-scrollbar { 
   display: none;
@@ -209,6 +216,27 @@ body{
   position: absolute; /* Position the badge within the relatively positioned button */
   bottom: 0;
   left: -10px;
+}
+.participant{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+}
+.participant .left{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.is-admin{
+  color: var(--grey-button);
+  font-weight: 600;
+}
+.empty-state{
+  padding-top: 60px;
+  text-align: center;
+  color: var(--grey-button);
 }
 
 /* icons */

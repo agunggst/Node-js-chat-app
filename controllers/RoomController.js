@@ -53,7 +53,7 @@ class RoomController {
           roomId: req.params.id 
         }, 
         order: [ 
-          ['createdAt', 'DESC'] 
+          ['createdAt', 'ASC'] 
         ] 
       })
       // res.json({ userData, roomData, participants, messages })
@@ -91,7 +91,8 @@ class RoomController {
   }
   static async getRoomParticipants (req, res) {
     try {
-      const data = await participant.findAll({
+      const roomData = await room.findByPk(req.params.id)
+      const participants = await participant.findAll({
         include: {
           model: user
         },
@@ -99,31 +100,57 @@ class RoomController {
           roomId: Number(req.params.id)
         }
       })
-      res.json(data)
+      // res.json({ data: { roomData, participants }})
+      res.render('roomParticipants.ejs', { data: { roomData, participants } })
+    } catch (error) {
+      res.send(error)
+    }
+  }
+  static async gotoAddRoomParticipant (req, res) {
+    try {
+      const roomData = await room.findByPk(req.params.id)
+      const participants = await participant.findAll({
+        include: {
+          model: user
+        },
+        where: {
+          roomId: Number(req.params.id)
+        }
+      })
+      const participantsIds = participants.map(participant => {
+        return participant.userId
+      })
+      let users = await user.findAll()
+      let nonParticipants = users.filter(user => {
+        return !participantsIds.includes(user.id)
+      })
+      // res.json({ data: { roomData, nonParticipants }})
+      res.render('addParticipant.ejs', { data: { roomData, nonParticipants }})
     } catch (error) {
       res.send(error)
     }
   }
   static async addRoomParticipant (req, res) {
     try {
-      const result = await participant.create({
+      await participant.create({
         userId: req.params.userId,
         roomId: req.params.id
       })
-      res.json(result)
+      res.redirect(`/rooms/${req.params.id}`)
     } catch (error) {
       res.send(error)
     }
   }
   static async deleteRoomParticipant (req, res) {
     try {
-      const result = await participant.destroy({
+      await participant.destroy({
         where: {
           userId: req.params.userId,
           roomId: req.params.id
         }
       })
-      res.json(result)
+      // res.json(result)
+      res.redirect(`/rooms/${req.params.id}`)
     } catch (error) {
       res.send(error)
     }

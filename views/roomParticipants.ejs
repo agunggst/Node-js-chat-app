@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Node.js Chat App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  </head>
+  <body>
+    <div class="container container-shadow">
+      <div class="rl-padding header">
+        <div class="info">
+          <img src="<%=data.roomData.roomAvatar%>" class="profile-pict">
+          <div class="text-username"><%=data.roomData.roomName%></div>
+        </div>
+        <a href="/rooms/<%=data.roomData.id%>" class="change-user-link">
+          <button class="button-default change-user">
+            <span class="material-symbols-outlined">arrow_back</span>
+          </button>
+        </a>
+      </div>
+      <div class="rl-padding participants">
+        <div class="subtitle" style="padding-bottom: 20px;">
+          <a href="/rooms/<%=data.roomData.id%>/add-participant">
+            <button class="button-link"> + </button>
+          </a>
+          participants
+        </div>
+        <%data.participants.forEach(participant => {%>
+          <div class="participant">
+            <div class="left">
+              <img src="<%=participant.user.avatar%>" class="profile-pict">
+              <div class="text-regular" style="margin-left: 16px;"><%=participant.user.username%></div>
+            </div>
+            <div class="right">
+              <%if (participant.userId != data.roomData.userId) {%>
+                <a href="/rooms/<%=data.roomData.id%>/delete-participant/<%=participant.userId%>">
+                  <button class="button-default">
+                    <span class="material-symbols-outlined">person_remove</span>
+                  </button>
+                </a>
+              <%} else {%>
+                <div class="text-regular is-admin">Admin</div>
+              <%}%>
+            </div>
+          </div>
+        <%})%>
+      </div>
+    </div>
+  </body>
+</html>
