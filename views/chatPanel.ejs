@@ -22,13 +22,15 @@
             </button>
           </a>
         </div>
-        <div class="rl-padding participant-list">
-          <%data.participants.forEach(participant => {%>
-            <img src="<%=participant.user.avatar%>" class="profile-pict" style="margin-right: 12px; width: 35px; height: 35px;">
-          <%})%>
-        </div>
+        <a href="/rooms/<%=data.roomData.id%>/participants">
+          <div class="rl-padding participant-list">
+            <%data.participants.forEach(participant => {%>
+              <img src="<%=participant.user.avatar%>" class="profile-pict" style="margin-right: 12px; width: 35px; height: 35px;">
+            <%})%>
+          </div>
+        </a>
       </div>
-      <div class="rl-padding mid">
+      <div class="rl-padding mid" id="panel-scroll">
         <div class="message-container">
           <%data.messages.forEach(message => {%>
             <div class="bubble-chat-container <%=(message.userId == data.userData.id) ? 'chat-container-right' : 'chat-container-left'%>">
@@ -47,9 +49,9 @@
         </div>
       </div>
       <div class="rl-padding bottom">
-        <form action="/messages/send" method="post" class="send-message-form" autocomplete="off">
+        <form action="/messages/send/<%=data.roomData.id%>" method="post" class="send-message-form" autocomplete="off">
           <input type="text" name="message" id="message" class="input-message" placeholder="Type here..." required>
-          <button class="button-chat">
+          <button class="button-chat" type="submit">
             <span class="material-symbols-outlined">send</span>
           </button>
         </form>
