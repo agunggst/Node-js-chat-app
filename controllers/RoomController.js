@@ -27,14 +27,8 @@ class RoomController {
           ['createdAt', 'DESC'] 
         ] 
       })
-      rooms = rooms.map(room => {
-        room.message = roomMessages.find(roomMessage => roomMessage.roomId === room.id)
-        return room
-      })
-      res.json({
-        userData,
-        rooms
-      })
+      // res.json({ userData, rooms, roomMessages })
+      res.render('index.ejs', { data: { userData, rooms, roomMessages }})
     } catch (error) {
       res.send(error)
     }
@@ -42,6 +36,7 @@ class RoomController {
   static async getChatPanel (req, res) {
     try {
       const userData = await UserController.checkLogin()
+      const roomData = await room.findByPk(req.params.id)
       const participants = await participant.findAll({ 
         include: {
           model: user
@@ -51,6 +46,9 @@ class RoomController {
         } 
       })
       const messages = await message.findAll({ 
+        include: {
+          model: user
+        },
         where: { 
           roomId: req.params.id 
         }, 
@@ -58,17 +56,19 @@ class RoomController {
           ['createdAt', 'DESC'] 
         ] 
       })
-      res.json({
-        userData,
-        participants,
-        messages
-      })
+      // res.json({ userData, roomData, participants, messages })
+      res.render('chatPanel.ejs', { data: { userData, roomData, participants, messages } })
     } catch (error) {
       res.send(error)
     }
   }
   static async gotoCreateRoom (req, res) {
-
+    try {
+      const userData = await UserController.checkLogin()
+      res.render('createRoom.ejs', { data: { userData }})
+    } catch (error) {
+      res.send(error)
+    }
   }
   static async createRoom (req, res) {
     try {
@@ -83,7 +83,8 @@ class RoomController {
         userId: userData.id,
         roomId: newRoom.id
       })
-      res.json(newRoom)
+      // res.json(newRoom)
+      res.redirect('/')
     } catch (error) {
       res.send(error)
     }

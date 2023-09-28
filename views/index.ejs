@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Node.js Chat App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  </head>
+  <body>
+    <div class="container container-shadow">
+      <div class="rl-padding header">
+        <div class="info">
+          <img src="<%=data.userData.avatar%>" class="profile-pict">
+          <div class="text-username"><%=data.userData.username%></div>
+        </div>
+        <a href="/users/switch-user" class="change-user-link">
+          <button class="button-default change-user">
+            <span class="material-symbols-outlined">sync_alt</span>
+          </button>
+        </a>
+      </div>
+      <div class="rl-padding create-group">
+        <a href="/create-room">
+          <button class="button-default w-100">
+            Create chat room
+          </button>
+        </a>
+      </div>
+      <div class="rl-padding chat-rooms">
+        <div class="subtitle">Chat rooms</div>
+        <div class="rooms">
+          <%data.rooms.forEach(room => {%>
+            <a href="/rooms/<%=room.id%>">
+              <div class="room-list">
+                <img src="<%=room.roomAvatar%>" class="profile-pict">
+                <div class="room-info">
+                  <div class="text-regular"><%=room.roomName%></div>
+                  <%var firstMessage = data.roomMessages.find(message => message.roomId == room.id)%>
+                  <div class="last-message"><%= firstMessage ? firstMessage.message : 'No message yet. Say hello to your group!' %></div>
+                </div>
+              </div>
+            </a>
+          <%})%>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

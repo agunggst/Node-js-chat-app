@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Node.js Chat App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  </head>
+  <body class="chat-panel">
+    <div class="container container-shadow">
+      <div class="top">
+        <div class="rl-padding header">
+          <div class="info">
+            <img src="<%=data.roomData.roomAvatar%>" class="profile-pict">
+            <div class="text-username"><%=data.roomData.roomName%></div>
+          </div>
+          <a href="/" class="change-user-link">
+            <button class="button-default change-user">
+              <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+          </a>
+        </div>
+        <div class="rl-padding participant-list">
+          <%data.participants.forEach(participant => {%>
+            <img src="<%=participant.user.avatar%>" class="profile-pict" style="margin-right: 12px; width: 35px; height: 35px;">
+          <%})%>
+        </div>
+      </div>
+      <div class="rl-padding mid">
+        <div class="message-container">
+          <%data.messages.forEach(message => {%>
+            <div class="bubble-chat-container <%=(message.userId == data.userData.id) ? 'chat-container-right' : 'chat-container-left'%>">
+              <%if (message.userId == data.userData.id) {%>
+                <div class="bubble-chat buble-right">
+                  <%=message.message%>
+                </div>
+              <%} else {%>
+                <div class="bubble-chat buble-left">
+                  <img src="<%=message.user.avatar%>" class="profile-pict" style="width: 24px; height: 24px;">
+                  <%=message.message%>
+                </div>
+              <%}%>
+            </div>
+          <%})%>
+        </div>
+      </div>
+      <div class="rl-padding bottom">
+        <form action="/messages/send" method="post" class="send-message-form" autocomplete="off">
+          <input type="text" name="message" id="message" class="input-message" placeholder="Type here..." required>
+          <button class="button-chat">
+            <span class="material-symbols-outlined">send</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
