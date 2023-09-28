@@ -18,9 +18,19 @@ module.exports = (sequelize, DataTypes) => {
   }
   room.init({
     roomName: DataTypes.STRING,
-    roomAvatar: DataTypes.STRING,
+    roomAvatar: {
+      type: DataTypes.STRING,
+      isUrl: true
+    },
     userId: DataTypes.INTEGER
   }, {
+    hooks: {
+      beforeCreate: (room, options) => {
+        if (room.roomAvatar === '' || !room.roomAvatar) {
+          room.roomAvatar = 'https://cdn-icons-png.flaticon.com/512/3437/3437288.png'
+        }
+      }
+    },
     sequelize,
     modelName: 'room',
   });
