@@ -20,8 +20,16 @@ class UserController {
   }
   static async gotoSwitchUser (req, res) {
     try {
-      const users = await user.findAll()
-      res.json(users)
+      const userData = await UserController.checkLogin()
+      const users = await user.findAll({
+        where: {
+          id: {
+            [Op.not]: userData.id
+          }
+        }
+      })
+      // res.json(users)
+      res.render('switchUser.ejs', { data: { userData, users } })
     } catch (error) {
       res.send(error)
     }
@@ -38,7 +46,8 @@ class UserController {
           id: req.params.id
         }
       })
-      res.json({ status: 'success' })
+      // res.json({ status: 'success' })
+      res.redirect('/')
     } catch (error) {
       res.send(error)
     }
