@@ -3,6 +3,13 @@
 Hi! pada project ini saya membuat aplikasi chat menggunakan Node.js + Express, Sequelize sebagai orm-nya,
 PostgreSQL, dan EJS sebagai tampilan view server side render. Project ini bertujuan untuk mendalami lebih lanjut mengenai relasi database many-to-many pada PostgreSQL dan Sequelize, dengan relation diagram yang dapat dilihat pada ERD.png
 
+## How to use
+
+0. `npm install -g sequelize-cli` (jika belum install sequelize-cli)
+1. `npm install`
+2. `npm run init-db`
+3. `npm run seed-db`
+4. `npm run start`
 
 ## Disclaimer
 

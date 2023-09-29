@@ -20,7 +20,8 @@ Table participants {
 Table rooms {
   id integer [primary key]
   roomName varchar
-  adminId integer [ref: > users.id]
+  roomAvatar varchar
+  userId integer [ref: > users.id]
   createdAt timestamp
   updatedAt timestamp
 }
